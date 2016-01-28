@@ -4,24 +4,24 @@ namespace Game_of_Life {
     public class Board {
         private readonly MenuText text = new MenuText();
 
-        public void ShowGame(GameWorld world, int game) {
-            var igMenu = new InGameMenu();
-            ShowBoard(world, InGameMenu.SelectedGame);
-            text.ShowBoardMenu(world, game);
-            ConsoleKey key = Console.ReadKey(true).Key;
-            igMenu.SelectInGameBoardAction(world, key);
+        public void ShowSelectedBoard(SavedGame game) {
+            var inGameMenu = new InGameMenu();
+            ShowBoardLayout(game.Boards[InGameMenu.SelectedBoard]);
+            text.ShowBoardStats(game.Boards[InGameMenu.SelectedBoard]);
+            text.ShowBoardMenu();
+            inGameMenu.SelectBoardAction(game);
         }
 
-        public void ShowBoardForWorld(GameWorld world, int game) {
-            ShowBoard(world, game);
-            text.ShowGameStats(world, game);
+        public void ShowBoard(SavedBoard game) {
+            ShowBoardLayout(game);
+            text.ShowBoardStats(game);
         }
 
-        private void ShowBoard(GameWorld world, int game) {
+        private void ShowBoardLayout(SavedBoard game) {
             Console.Clear();
-            for (var yAxis = 0; yAxis <= world.Game[game].Board.Length - 1; yAxis++) {
-                for (var xAxis = 0; xAxis <= world.Game[game].Board[0].Length - 1; xAxis++) {
-                    Console.Write(world.Game[game].Board[yAxis][xAxis]);
+            for (var yAxis = 0; yAxis <= game.Layout.Length - 1; yAxis++) {
+                for (var xAxis = 0; xAxis <= game.Layout[0].Length - 1; xAxis++) {
+                    Console.Write(game.Layout[yAxis][xAxis]);
                 }
 
                 Console.WriteLine();

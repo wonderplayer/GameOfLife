@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 namespace Game_of_Life {
     public static class Progarm {
@@ -20,7 +19,7 @@ namespace Game_of_Life {
                     game.NewGame();
                     break;
                 case ConsoleKey.D2:
-                    GameWorld savedGame = game.LoadGame();
+                    SavedGame savedGame = game.LoadGame();
                     game.Play(savedGame, false);
                     break;
                 case ConsoleKey.D3:
@@ -31,28 +30,6 @@ namespace Game_of_Life {
                     ShowMenu();
                     break;
             }
-        }
-
-        public static string ReadLineWithCancel() {
-            var buffer = new StringBuilder();
-            ConsoleKeyInfo info = Console.ReadKey(true);
-            while (info.Key != ConsoleKey.Enter && info.Key != ConsoleKey.Escape) {
-                if (info.Key != ConsoleKey.Backspace) {
-                    buffer.Append(info.KeyChar);
-                    Console.Write(info.KeyChar);
-                } else {
-                    if (buffer.Length > 0) {
-                        buffer.Remove(buffer.Length - 1, 1);
-                        Console.Write("\b");
-                        Console.Write(" ");
-                        Console.Write("\b");
-                    }
-                }
-
-                info = Console.ReadKey(true);
-            }
-
-            return info.Key == ConsoleKey.Enter ? buffer.ToString() : null;
         }
     }
 }

@@ -3,23 +3,22 @@
 namespace Game_of_Life {
     public class InGameMenu {
         private readonly MenuText text = new MenuText();
-        public static int SelectedGame { get; set; }
+        public static int SelectedBoard { get; private set; }
 
-        public void ShowInGameMenu(GameWorld world) {
-            text.ShowInGameMenuText();
+        public void ShowGameMenu(SavedGame game) {
+            text.ShowGameMenuText();
             Console.ReadKey(true);
-            ConsoleKey key = Console.ReadKey(true).Key;
-            SelectInGameAction(world, key);
+            SelectGameAction(game, Console.ReadKey(true).Key);
         }
 
-        private void SelectInGameAction(GameWorld world, ConsoleKey key) {
-            var game = new Game();
+        private void SelectGameAction(SavedGame game, ConsoleKey key) {
+            var theGame = new Game();
             switch (key) {
                 case ConsoleKey.S:
-                    game.SaveGame(world);
+                    theGame.SaveGame(game);
                     break;
                 case ConsoleKey.W:
-                    SelectGame(world);
+                    SelectBoard(game);
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
@@ -27,24 +26,25 @@ namespace Game_of_Life {
             }
         }
 
-        private void SelectGame(GameWorld world) {
+        private void SelectBoard(SavedGame game) {
             var board = new Board();
-            SelectedGame = InputGameNumber();
-            board.ShowGame(world, SelectedGame);
+            SelectedBoard = InputBoardNumber();
+            board.ShowSelectedBoard(game);
         }
 
-        private int InputGameNumber() {
+        private int InputBoardNumber() {
             int selectedGame;
             Console.Write("Input game number:");
             int.TryParse(Console.ReadLine(), out selectedGame);
             return selectedGame;
         }
 
-        public void SelectInGameBoardAction(GameWorld world, ConsoleKey key) {
-            var game = new Game();
+        public void SelectBoardAction(SavedGame game) {
+            var theGame = new Game();
+            ConsoleKey key = Console.ReadKey(true).Key;
             switch (key) {
                 case ConsoleKey.C:
-                    game.Play(world, true);
+                    theGame.Play(game, true);
                     break;
             }
         }

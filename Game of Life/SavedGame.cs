@@ -1,9 +1,10 @@
-﻿namespace Game_of_Life {
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+namespace Game_of_Life {
+    [DataContract]
     public class SavedGame {
-        public int AliveCells { get; set; }
-
-        public char[][] Board { get; set; }
-
-        public int Generation { get; set; }
+        [DataMember]
+        public List<SavedBoard> Boards { get; set; }
     }
 }

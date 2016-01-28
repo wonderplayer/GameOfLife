@@ -50,13 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameWorld.cs" />
+    <Compile Include="SavedGame.cs" />
     <Compile Include="InGameMenu.cs" />
     <Compile Include="MenuText.cs" />
     <Compile Include="GameCycle.cs" />
-    <Compile Include="SavedGame.cs" />
+    <Compile Include="SavedBoard.cs" />
     <Compile Include="Board.cs" />
-    <Compile Include="GameFileManager.cs" />
+    <Compile Include="Files.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Progarm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

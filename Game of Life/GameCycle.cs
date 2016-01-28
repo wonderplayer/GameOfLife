@@ -1,58 +1,68 @@
 namespace Game_of_Life {
     public class GameCycle {
-        public void ChangeBoardState(SavedGame game) {
-            var ngen = new char[game.Board.Length][];
-            CreateNextGeneration(game, ngen);
-            game.Generation++;
-            game.Board = ngen;
+        public void ChangeBoardState(SavedBoard board) {
+            var newGeneration = new char[board.Layout.Length][];
+            CreateNextGeneration(board, newGeneration);
+            board.Generation++;
+            board.Layout = newGeneration;
         }
 
-        private void CreateNextGeneration(SavedGame game, char[][] ngen) {
-            var aroundCell = new char[3][];
-            for (var yAxis = 0; yAxis < game.Board.Length; yAxis++) {
-                ngen[yAxis] = new char[game.Board[0].Length];
-                for (var xAxis = 0; xAxis < game.Board[0].Length; xAxis++) {
-                    CreateArrayAroundCell(game, aroundCell, yAxis, xAxis);
-                    char prevState = game.Board[yAxis][xAxis];
-                    ngen[yAxis][xAxis] = FindNextState(aroundCell);
-                    if (prevState == ngen[yAxis][xAxis]) {
-                        continue;
-                    }
-                    if (prevState == 'X') {
-                        game.AliveCells--;
-                    } else {
-                        game.AliveCells++;
-                    }
+        private void CreateNextGeneration(SavedBoard board, char[][] newGeneration) {
+            var neighbors = new char[3][];
+            for (var yAxis = 0; yAxis < board.Layout.Length; yAxis++) {
+                newGeneration[yAxis] = new char[board.Layout[0].Length];
+                for (var xAxis = 0; xAxis < board.Layout[0].Length; xAxis++) {
+                    CreateArrayAroundCell(board, neighbors, yAxis, xAxis);
+                    newGeneration[yAxis][xAxis] = FindCurrentCellsNextState(neighbors);
+                    board.AliveCells += CheckIfStateChanged(board, yAxis, xAxis, newGeneration);
                 }
             }
         }
 
-        private void CreateArrayAroundCell(SavedGame game, char[][] aroundCell, int yAxis, int xAxis) {
-            for (var acYAxis = 0; acYAxis <= 2; acYAxis++) {
-                aroundCell[acYAxis] = new char[3];
-                for (var acXAxis = 0; acXAxis <= 2; acXAxis++) {
-                    bool isCrossingTopBorder = acYAxis + yAxis - 1 < 0;
-                    bool isCorssingBottomBorder = acYAxis + yAxis > game.Board.Length;
-                    bool isCrossingLeftBorder = acXAxis + xAxis - 1 < 0;
-                    bool isCrossingRightBorder = acXAxis + xAxis > game.Board[0].Length;
+        private void CreateArrayAroundCell(SavedBoard board, char[][] neighbors, int yAxis, int xAxis)
+        {
+            for (var aliveCellY = 0; aliveCellY <= 2; aliveCellY++)
+            {
+                neighbors[aliveCellY] = new char[3];
+                for (var aliveCellX = 0; aliveCellX <= 2; aliveCellX++)
+                {
+                    bool isCrossingTopBorder = aliveCellY + yAxis - 1 < 0;
+                    bool isCorssingBottomBorder = aliveCellY + yAxis > board.Layout.Length;
+                    bool isCrossingLeftBorder = aliveCellX + xAxis - 1 < 0;
+                    bool isCrossingRightBorder = aliveCellX + xAxis > board.Layout[0].Length;
                     bool isNotInBorders = isCrossingTopBorder || isCorssingBottomBorder || isCrossingLeftBorder ||
                                          isCrossingRightBorder;
-                    if (isNotInBorders) {
-                        aroundCell[acYAxis][acXAxis] = ' ';
-                    } else {
-                        aroundCell[acYAxis][acXAxis] = game.Board[acYAxis + yAxis - 1][acXAxis + xAxis - 1];
+                    if (isNotInBorders)
+                    {
+                        neighbors[aliveCellY][aliveCellX] = ' ';
+                    }
+                    else {
+                        neighbors[aliveCellY][aliveCellX] = board.Layout[aliveCellY + yAxis - 1][aliveCellX + xAxis - 1];
                     }
                 }
             }
         }
 
-        private char FindNextState(char[][] array) {
-            int aliveCellsAround = FindCellState(array);
+        private char FindCurrentCellsNextState(char[][] array)
+        {
+            int aliveCellsAround = FindCurrentCellState(array);
             aliveCellsAround = CountAliveNeighbors(array, aliveCellsAround);
-            return DetermineNextState(array, aliveCellsAround);
+            return DetermineNextCellState(array, aliveCellsAround);
         }
 
-        private int FindCellState(char[][] array) {
+        private int CheckIfStateChanged(SavedBoard board, int yAxis, int xAxis, char[][] newGeneration) {
+            char prevState = board.Layout[yAxis][xAxis];
+            if (prevState == newGeneration[yAxis][xAxis])
+            {
+                return 0;
+            }
+            if (prevState == 'X') {
+                return -1;
+            }
+            return 1;    
+        }
+
+        private int FindCurrentCellState(char[][] array) {
             var aliveCellsAround = 0;
             bool isAlive = array[1][1] == 'X';
             if (isAlive) {
@@ -70,7 +80,7 @@ namespace Game_of_Life {
             return aliveCellsAround;
         }
 
-        private char DetermineNextState(char[][] array, int aliveCellsAround) {
+        private char DetermineNextCellState(char[][] array, int aliveCellsAround) {
             switch (aliveCellsAround) {
                 case 0:
                 case 1:

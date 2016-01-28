@@ -2,16 +2,15 @@
 
 namespace Game_of_Life {
     public class MenuText {
-        public void ShowGameStats(GameWorld world, int game) {
-            Console.Write("Alive cells: {0}", world.Game[game].AliveCells);
-            Console.WriteLine("  Generation: {0}", world.Game[game].Generation);
+        public void ShowBoardStats(SavedBoard board) {
+            Console.Write("Alive cells: {0}", board.AliveCells);
+            Console.WriteLine("  Generation: {0}", board.Generation);
             Console.WriteLine();
         }
 
-        public void ShowBoardMenu(GameWorld world, int game) {
-            ShowGameStats(world, game);
-            Console.WriteLine("C - continue watching this game while playing");
-            Console.Write("Or press any other key to continue watching world...");
+        public void ShowBoardMenu() {
+            Console.WriteLine("C - continue watching this board while playing");
+            Console.Write("Or press any other key to continue watching game...");
         }
 
         public void ShowSaveGameText() {
@@ -20,17 +19,17 @@ namespace Game_of_Life {
             Console.Write("Enter a file name: ");
         }
 
-        public void ShowWorldStats(GameWorld world, int aliveCellsInWorld) {
-            Console.WriteLine("Alive cells in all games: " + aliveCellsInWorld);
-            Console.WriteLine("Generation: " + world.Game[0].Generation);
+        public void ShowGameStats(SavedGame game, int aliveCellsInGame) {
+            Console.WriteLine("Alive cells in game: " + aliveCellsInGame);
+            Console.WriteLine("Generation: " + game.Boards[0].Generation);
             Console.Write("Press any key to show menu...");
         }
 
-        public void ShowInGameMenuText() {
+        public void ShowGameMenuText() {
             Console.WriteLine();
             Console.Write("ESC - exit game  ");
             Console.Write("S - save game  ");
-            Console.WriteLine("W - select game to show");
+            Console.WriteLine("W - select board to show");
             Console.Write("Press any other key to resume a game");
             Console.WriteLine();
         }
@@ -40,5 +39,7 @@ namespace Game_of_Life {
             Console.WriteLine("2. Load game form file");
             Console.WriteLine("3. Exit");
         }
+
+        
     }
 }

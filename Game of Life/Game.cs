@@ -4,74 +4,73 @@ using System.Collections.Generic;
 namespace Game_of_Life {
     public class Game {
         private readonly MenuText text = new MenuText();
-        private readonly GameFileManager gfManager = new GameFileManager();
-        private InGameMenu igMenu = new InGameMenu();
+        private readonly Files file = new Files();
+        private readonly InGameMenu inGameMenu = new InGameMenu();
 
         public void NewGame() {
-            SavedGame game = gfManager.LoadNewGame("GliderGun");
-            var world = new GameWorld {
-                Game = new List<SavedGame>()
+            SavedBoard board = file.LoadDefaultBoard();
+            var game = new SavedGame {
+                Boards = new List<SavedBoard>()
             };
-            CreateWorld(game, world);
-            Play(world, false);
+            FillGameWithBoards(board, game);
+            Play(game, false);
         }
 
-        private void CreateWorld(SavedGame game, GameWorld world) {
+        private void FillGameWithBoards(SavedBoard board, SavedGame game) {
             for (var i = 0; i < 753; i++) {
-                world.Game.Add(new SavedGame {
-                    AliveCells = game.AliveCells,
-                    Board = game.Board,
-                    Generation = game.Generation
+                game.Boards.Add(new SavedBoard {
+                    AliveCells = board.AliveCells,
+                    Layout = board.Layout,
+                    Generation = board.Generation
                 });
             }
         }
 
-        public GameWorld LoadGame() {
-            Console.WriteLine("Input file name (example: MySavedGame)");
+        public SavedGame LoadGame() {
+            Console.WriteLine("Input file name");
             string fileName = Console.ReadLine();
-            return gfManager.LoadGame(fileName);
+            return file.LoadGame(fileName);
         }
 
-        public void SaveGame(GameWorld world) {
+        public void SaveGame(SavedGame game) {
             text.ShowSaveGameText();
-            string fileName = Progarm.ReadLineWithCancel();
-            gfManager.SaveGame(world, fileName);
+            string fileName = Console.ReadLine();
+            file.SaveGame(game, fileName);
         }
 
-        public void Play(GameWorld world, bool isNeededToShowGame) {
+        public void Play(SavedGame game, bool isNeededToShowBoard) {
             do {
-                PlayWhileKeyNotPressed(world, isNeededToShowGame);
-                igMenu.ShowInGameMenu(world);
+                PlayWhileKeyNotPressed(game, isNeededToShowBoard);
+                inGameMenu.ShowGameMenu(game);
             } while (true);
         }
 
-        private void PlayWhileKeyNotPressed(GameWorld world, bool isNeededToShowGame) {
+        private void PlayWhileKeyNotPressed(SavedGame game, bool isNeededToShowBoard) {
             while (!Console.KeyAvailable) {
-                int aliveCellsInWorld = StepToNextGeneration(world);
+                int aliveCellsInGame = StepToNextGeneration(game);
                 Console.Clear();
-                if (isNeededToShowGame) {
-                    ShowWorldAndGame(world, aliveCellsInWorld);
-                } else {
-                    text.ShowWorldStats(world, aliveCellsInWorld);
-                }
+                if (isNeededToShowBoard) {
+                    ShowGameWithBoard(game, aliveCellsInGame);
+                    continue;
+                } 
+                    text.ShowGameStats(game, aliveCellsInGame);
             }
         }
 
-        private int StepToNextGeneration(GameWorld world) {
+        private int StepToNextGeneration(SavedGame world) {
             var gameCycle = new GameCycle();
-            var aliveCellsInWorld = 0;
-            foreach (SavedGame game in world.Game) {
-                gameCycle.ChangeBoardState(game);
-                aliveCellsInWorld += game.AliveCells;
+            var aliveCellsInGame = 0;
+            foreach (SavedBoard board in world.Boards) {
+                gameCycle.ChangeBoardState(board);
+                aliveCellsInGame += board.AliveCells;
             }
-            return aliveCellsInWorld;
+            return aliveCellsInGame;
         }
 
-        private void ShowWorldAndGame(GameWorld world, int aliveCellsInWorld) {
+        private void ShowGameWithBoard(SavedGame game, int aliveCellsInGame) {
             var board = new Board();
-            igMenu = new InGameMenu();
-            board.ShowBoardForWorld(world, InGameMenu.SelectedGame);
-            text.ShowWorldStats(world, aliveCellsInWorld);
+            board.ShowBoard(game.Boards[InGameMenu.SelectedBoard]);
+            text.ShowGameStats(game, aliveCellsInGame);
         }
     }
 }
