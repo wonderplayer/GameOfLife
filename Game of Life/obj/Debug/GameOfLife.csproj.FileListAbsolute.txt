@@ -1,0 +1,16 @@
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game of Life\bin\Debug\Game of Life.exe.config
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game of Life\bin\Debug\Game of Life.exe
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game of Life\bin\Debug\Game of Life.pdb
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game of Life\obj\Debug\GameOfLife.csprojResolveAssemblyReference.cache
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game of Life\obj\Debug\Game of Life.exe
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game of Life\obj\Debug\Game of Life.pdb
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game of Life\bin\Debug\Moq.dll
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game of Life\bin\Debug\Moq.xml
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\bin\Debug\Game of Life.exe.config
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\obj\Debug\Game of Life.exe
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\obj\Debug\Game of Life.pdb
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\bin\Debug\Game of Life.exe
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\bin\Debug\Game of Life.pdb
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\bin\Debug\Moq.dll
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\bin\Debug\Moq.xml
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\obj\Debug\GameOfLife.csprojResolveAssemblyReference.cache

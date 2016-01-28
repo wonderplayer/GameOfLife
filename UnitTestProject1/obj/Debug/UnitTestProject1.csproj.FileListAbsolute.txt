@@ -1,0 +1,12 @@
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\UnitTestProject1.dll
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\UnitTestProject1.pdb
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\nunit.framework.dll
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\nunit.framework.xml
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\obj\Debug\UnitTestProject1.dll
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\Game of Life.exe
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\Moq.dll
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\Game of Life.pdb
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\bin\Debug\Moq.xml
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\UnitTestProject1\obj\Debug\UnitTestProject1.csprojResolveAssemblyReference.cache
