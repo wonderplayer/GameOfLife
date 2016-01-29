@@ -35,10 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -50,20 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SavedGame.cs" />
+    <Compile Include="IGame.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="InGameMenu.cs" />
     <Compile Include="MenuText.cs" />
     <Compile Include="GameCycle.cs" />
     <Compile Include="SavedBoard.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Files.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Gameplay.cs" />
     <Compile Include="Progarm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

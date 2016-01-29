@@ -5,14 +5,14 @@ namespace Game_of_Life {
         private readonly MenuText text = new MenuText();
         public static int SelectedBoard { get; private set; }
 
-        public void ShowGameMenu(SavedGame game) {
+        public void ShowGameMenu(Game game) {
             text.ShowGameMenuText();
             Console.ReadKey(true);
             SelectGameAction(game, Console.ReadKey(true).Key);
         }
 
-        private void SelectGameAction(SavedGame game, ConsoleKey key) {
-            var theGame = new Game();
+        private void SelectGameAction(Game game, ConsoleKey key) {
+            var theGame = new Gameplay();
             switch (key) {
                 case ConsoleKey.S:
                     theGame.SaveGame(game);
@@ -26,7 +26,7 @@ namespace Game_of_Life {
             }
         }
 
-        private void SelectBoard(SavedGame game) {
+        private void SelectBoard(Game game) {
             var board = new Board();
             SelectedBoard = InputBoardNumber();
             board.ShowSelectedBoard(game);
@@ -39,8 +39,8 @@ namespace Game_of_Life {
             return selectedGame;
         }
 
-        public void SelectBoardAction(SavedGame game) {
-            var theGame = new Game();
+        public void SelectBoardAction(Game game) {
+            var theGame = new Gameplay();
             ConsoleKey key = Console.ReadKey(true).Key;
             switch (key) {
                 case ConsoleKey.C:

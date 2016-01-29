@@ -19,7 +19,7 @@ namespace Game_of_Life {
             Console.Write("Enter a file name: ");
         }
 
-        public void ShowGameStats(SavedGame game, int aliveCellsInGame) {
+        public void ShowGameStats(Game game, int aliveCellsInGame) {
             Console.WriteLine("Alive cells in game: " + aliveCellsInGame);
             Console.WriteLine("Generation: " + game.Boards[0].Generation);
             Console.Write("Press any key to show menu...");

@@ -4,7 +4,7 @@ namespace Game_of_Life {
     public class Board {
         private readonly MenuText text = new MenuText();
 
-        public void ShowSelectedBoard(SavedGame game) {
+        public void ShowSelectedBoard(Game game) {
             var inGameMenu = new InGameMenu();
             ShowBoardLayout(game.Boards[InGameMenu.SelectedBoard]);
             text.ShowBoardStats(game.Boards[InGameMenu.SelectedBoard]);

@@ -13,14 +13,15 @@ namespace Game_of_Life {
         }
 
         private static void SelectAction(ConsoleKey key) {
-            var game = new Game();
+            var gameplay = new Gameplay();
             switch (key) {
                 case ConsoleKey.D1:
-                    game.NewGame();
+                    Game newGame = gameplay.NewGame();
+                    gameplay.Play(newGame, false);
                     break;
                 case ConsoleKey.D2:
-                    SavedGame savedGame = game.LoadGame();
-                    game.Play(savedGame, false);
+                    Game game = gameplay.LoadGame();
+                    gameplay.Play(game, false);
                     break;
                 case ConsoleKey.D3:
                 case ConsoleKey.Escape:
