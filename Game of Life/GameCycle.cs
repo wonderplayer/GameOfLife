@@ -1,65 +1,67 @@
 namespace Game_of_Life {
     public class GameCycle {
         public void ChangeBoardState(SavedBoard board) {
-            var newGeneration = new char[board.Layout.Length][];
-            CreateNextGeneration(board, newGeneration);
             board.Generation++;
-            board.Layout = newGeneration;
+            board.Layout = CreateNextGeneration(board);
         }
 
-        private void CreateNextGeneration(SavedBoard board, char[][] newGeneration) {
-            var neighbors = new char[3][];
+        private char[][] CreateNextGeneration(SavedBoard board) {
+            var newGen = new char[board.Layout.Length][];
             for (var yAxis = 0; yAxis < board.Layout.Length; yAxis++) {
-                newGeneration[yAxis] = new char[board.Layout[0].Length];
-                for (var xAxis = 0; xAxis < board.Layout[0].Length; xAxis++) {
-                    CreateArrayAroundCell(board, neighbors, yAxis, xAxis);
-                    newGeneration[yAxis][xAxis] = FindCurrentCellsNextState(neighbors);
-                    board.AliveCells += CheckIfStateChanged(board, yAxis, xAxis, newGeneration);
-                }
+                newGen[yAxis] = new char[board.Layout[0].Length];
+                AddCellToNewGen(board, yAxis, newGen);
+            }
+            return newGen;
+        }
+
+        private void AddCellToNewGen(SavedBoard board, int yAxis, char[][] newGen) {
+            var neighbors = new char[3][];
+            for (var xAxis = 0; xAxis < board.Layout[0].Length; xAxis++) {
+                CreateArrayAroundCell(board, neighbors, yAxis, xAxis);
+                newGen[yAxis][xAxis] = FindNextCellsNextState(neighbors);
+                board.AliveCells += CheckIfStateChanged(board, yAxis, xAxis, newGen);
             }
         }
 
-        private void CreateArrayAroundCell(SavedBoard board, char[][] neighbors, int yAxis, int xAxis)
-        {
-            for (var aliveCellY = 0; aliveCellY <= 2; aliveCellY++)
-            {
-                neighbors[aliveCellY] = new char[3];
-                for (var aliveCellX = 0; aliveCellX <= 2; aliveCellX++)
-                {
-                    bool isCrossingTopBorder = aliveCellY + yAxis - 1 < 0;
-                    bool isCorssingBottomBorder = aliveCellY + yAxis > board.Layout.Length;
-                    bool isCrossingLeftBorder = aliveCellX + xAxis - 1 < 0;
-                    bool isCrossingRightBorder = aliveCellX + xAxis > board.Layout[0].Length;
-                    bool isNotInBorders = isCrossingTopBorder || isCorssingBottomBorder || isCrossingLeftBorder ||
-                                         isCrossingRightBorder;
-                    if (isNotInBorders)
-                    {
-                        neighbors[aliveCellY][aliveCellX] = ' ';
-                    }
-                    else {
-                        neighbors[aliveCellY][aliveCellX] = board.Layout[aliveCellY + yAxis - 1][aliveCellX + xAxis - 1];
+        private void CreateArrayAroundCell(SavedBoard board, char[][] neighbors, int yAxis, int xAxis) {
+            for (var neighborY = 0; neighborY <= 2; neighborY++) {
+                neighbors[neighborY] = new char[3];
+                for (var neighborX = 0; neighborX <= 2; neighborX++) {
+                    bool isNotInBorders = CheckForBorders(board, yAxis, xAxis, neighborY, neighborX);
+                    if (isNotInBorders) {
+                        neighbors[neighborY][neighborX] = ' ';
+                    } else {
+                        neighbors[neighborY][neighborX] = board.Layout[neighborY + yAxis - 1][neighborX + xAxis - 1];
                     }
                 }
             }
         }
 
-        private char FindCurrentCellsNextState(char[][] array)
-        {
-            int aliveCellsAround = FindCurrentCellState(array);
-            aliveCellsAround = CountAliveNeighbors(array, aliveCellsAround);
+        private bool CheckForBorders(SavedBoard board, int yAxis, int xAxis, int neighborY, int neighborX) {
+            bool isCrossingTopBorder = neighborY + yAxis - 1 < 0;
+            bool isCorssingBottomBorder = neighborY + yAxis > board.Layout.Length;
+            bool isCrossingLeftBorder = neighborX + xAxis - 1 < 0;
+            bool isCrossingRightBorder = neighborX + xAxis > board.Layout[0].Length;
+            bool isNotInBorders = isCrossingTopBorder || isCorssingBottomBorder || isCrossingLeftBorder ||
+                                  isCrossingRightBorder;
+            return isNotInBorders;
+        }
+
+        private char FindNextCellsNextState(char[][] array) {
+            int currentCell = FindCurrentCellState(array);
+            int aliveCellsAround = CountAliveNeighbors(array, currentCell);
             return DetermineNextCellState(array, aliveCellsAround);
         }
 
-        private int CheckIfStateChanged(SavedBoard board, int yAxis, int xAxis, char[][] newGeneration) {
+        private int CheckIfStateChanged(SavedBoard board, int yAxis, int xAxis, char[][] newGen) {
             char prevState = board.Layout[yAxis][xAxis];
-            if (prevState == newGeneration[yAxis][xAxis])
-            {
+            if (prevState == newGen[yAxis][xAxis]) {
                 return 0;
             }
             if (prevState == 'X') {
                 return -1;
             }
-            return 1;    
+            return 1;
         }
 
         private int FindCurrentCellState(char[][] array) {

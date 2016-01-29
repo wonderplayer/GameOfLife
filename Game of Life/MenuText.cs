@@ -39,7 +39,5 @@ namespace Game_of_Life {
             Console.WriteLine("2. Load game form file");
             Console.WriteLine("3. Exit");
         }
-
-        
     }
 }

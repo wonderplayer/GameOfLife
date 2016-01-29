@@ -17,7 +17,7 @@ namespace Game_of_Life {
         }
 
         private void FillGameWithBoards(SavedBoard board, SavedGame game) {
-            for (var i = 0; i < 753; i++) {
+            for (var i = 0; i < 1000; i++) {
                 game.Boards.Add(new SavedBoard {
                     AliveCells = board.AliveCells,
                     Layout = board.Layout,
@@ -52,8 +52,8 @@ namespace Game_of_Life {
                 if (isNeededToShowBoard) {
                     ShowGameWithBoard(game, aliveCellsInGame);
                     continue;
-                } 
-                    text.ShowGameStats(game, aliveCellsInGame);
+                }
+                text.ShowGameStats(game, aliveCellsInGame);
             }
         }
 
