@@ -2,4 +2,6 @@ C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\Game
 C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\bin\Debug\Game of Life.pdb
 C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\obj\Debug\Game of Life.exe
 C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\obj\Debug\Game of Life.pdb
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\bin\Debug\Newtonsoft.Json.dll
+C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\bin\Debug\Newtonsoft.Json.xml
 C:\Users\rolands.strakis\Documents\Visual Studio 2015\Projects\Game of Life\GameOfLife\Game of Life\obj\Debug\GameOfLife.csprojResolveAssemblyReference.cache

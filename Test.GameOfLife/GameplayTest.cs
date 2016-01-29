@@ -1,5 +1,6 @@
-﻿using System.IO;
+﻿using System;
 using Game_of_Life;
+using Moq;
 using NUnit.Framework;
 
 namespace Test.GameOfLife {
@@ -20,15 +21,27 @@ namespace Test.GameOfLife {
 
         [Test]
         public void SaveGame() {
-            Game game = gameplay.NewGame();
-            gameplay.SaveGame(game);
+            Game newGame = gameplay.NewGame();
+            var mock = new Mock<IGameplay>();
+            mock.Verify(g => g.SaveGame(newGame), Times.Once);
         }
 
         [Test]
         public void LoadGame() {
             Game newGame = gameplay.NewGame();
-            Game loadedGame = gameplay.LoadGame();
-            Assert.AreNotEqual(newGame, loadedGame);
+            var mock = new Mock<IGameplay>();
+            //mock.Setup(g => g.LoadGame()).Returns(newGame);
+            mock.Verify(g => g.LoadGame(), Times.Once);
         }
+
+        [Test]
+        public void PlayWithoutShowingBoard() {
+            var newGame = new Game();
+            var game = new Mock<IGameplay>();
+            game.Setup(g => g.NewGame()).Returns(newGame);
+        }
+
+        [Test]
+        public void PlayWithShowingBoard() {}
     }
 }

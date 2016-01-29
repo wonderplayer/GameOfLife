@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Game_of_Life {
-    public class Gameplay : IGame {
-
+    public class Gameplay : IGameplay {
         private readonly MenuText text = new MenuText();
 
         private readonly Files file = new Files();
 
         private readonly InGameMenu inGameMenu = new InGameMenu();
 
+        private const string MAP_TYPE_FILE_NAME = "GliderGun.json";
+
         public Game NewGame() {
-            SavedBoard board = file.LoadDefaultBoard();
+            
+            string path = Path.GetFullPath(MAP_TYPE_FILE_NAME);
+            string jsonString = file.LoadGameFromFile(path);
+            var board = JsonConvert.DeserializeObject<SavedBoard>(jsonString);
             var game = new Game {
                 Boards = new List<SavedBoard>()
             };
@@ -22,14 +28,15 @@ namespace Game_of_Life {
 
         public Game LoadGame() {
             Console.WriteLine("Input file name");
-            string fileName = Console.ReadLine();
-            return file.LoadGame(fileName);
+            string fileName = Console.ReadLine() + ".json";
+            string jsonString = file.LoadGameFromFile(fileName);
+            return JsonConvert.DeserializeObject<Game>(jsonString);
         }
 
         public void SaveGame(Game game) {
             text.ShowSaveGameText();
             string fileName = Console.ReadLine();
-            file.SaveGame(game, fileName);
+            file.SaveToFile(game, fileName);
         }
 
         public void Play(Game game, bool isNeededToShowBoard) {

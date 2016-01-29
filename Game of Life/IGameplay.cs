@@ -1,6 +1,5 @@
 ﻿namespace Game_of_Life {
-    public interface IGame {
-
+    public interface IGameplay {
         void Play(Game game, bool isNeededToShowBoard);
 
         void SaveGame(Game game);

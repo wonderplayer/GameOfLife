@@ -1,29 +1,25 @@
 ﻿using System.IO;
-using System.Runtime.Serialization.Json;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace Game_of_Life {
     public class Files {
-        public void SaveGame(Game game, string fileName) {
-            var formatter = new DataContractJsonSerializer(typeof (Game));
-            var stream = new FileStream(fileName + ".json", FileMode.Create, FileAccess.Write, FileShare.None);
-            formatter.WriteObject(stream, game);
-            stream.Close();
+        public void SaveToFile(Game game, string fileName) {
+            string json = JsonConvert.SerializeObject(game);
+            using (FileStream fs = File.Create(fileName + ".json")) {
+                byte[] info = new UTF8Encoding(true).GetBytes(json);
+                fs.Write(info, 0, info.Length);
+            }
         }
 
-        public Game LoadGame(string file) {
-            var formatter = new DataContractJsonSerializer(typeof (Game));
-            var stream = new FileStream(file + ".json", FileMode.Open);
-            var savedGame = (Game) formatter.ReadObject(stream);
-            stream.Close();
-            return savedGame;
-        }
+        public string LoadGameFromFile(string fileName) {
+            string jsonString;
+            var stream = new FileStream(fileName, FileMode.Open);
 
-        public SavedBoard LoadDefaultBoard() {
-            var formatter = new DataContractJsonSerializer(typeof (SavedBoard));
-            var stream = new FileStream("C:\\Users\\rolands.strakis\\Documents\\Visual Studio 2015\\Projects\\Game of Life\\GameOfLife\\Game of Life\\bin\\Debug\\GliderGun.json", FileMode.Open);
-            var savedGame = (SavedBoard) formatter.ReadObject(stream);
-            stream.Close();
-            return savedGame;
+            using (var fileStreamReader = new StreamReader(stream)) {
+                jsonString = fileStreamReader.ReadToEnd();
+            }
+            return jsonString;
         }
     }
 }
